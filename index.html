@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Random colors</title>
+  <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+  <!-- Don't use this in production: -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+
+    class Colors extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          red: Math.floor(Math.random() * 255),
+          green: Math.floor(Math.random() * 255),
+          blue: Math.floor(Math.random() * 255)
+        }
+      }
+
+      componentDidMount() {
+        this.timerID = setInterval(() => this.tick(), 2000);
+      }
+
+      componentWillUnmount() {
+        clearInterval(this.timerID);
+      }
+
+      tick() {
+        this.setState({
+          red: Math.floor(Math.random() * 255),
+          green: Math.floor(Math.random() * 255),
+          blue: Math.floor(Math.random() * 255)
+        })
+      }
+
+      render() {
+        const myStyle = {
+          backgroundColor: 'rgb(' + this.state.red + ',' + this.state.green + ',' + this.state.blue + ')',
+          display: 'inline-grid',
+          width: '300px',
+          height: '300px',
+          marginBottom: '12px',
+          marginRight: '12px',
+          textAlign: 'center',
+          padding: '24px',
+          color: '#fff',
+          fontFamily: 'verdana',
+          fontWeight: 'bold',
+          border: '3px dotted #000'
+        }
+
+        return (
+          <div style={myStyle}>Random color</div>
+        );
+      }
+    }
+
+    function App() {
+      return (
+        <>
+          <Colors />
+          <Colors />
+          <Colors />
+        </>
+      )
+    }
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+
+  </script>
+
+</body>
+
+</html>
